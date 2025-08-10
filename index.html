@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="search-container">
+            <input type="text" id="city-input" placeholder="Enter city name">
+            <button id="search-btn"><i class="fas fa-search"></i> Search</button>
+        </div>
+
+        <div class="error-message" id="error-message">
+            City not found. Please try again.
+        </div>
+
+        <div class="weather-info" id="weather-info">
+            <div class="location" id="location">Guntur, India</div>
+            <div class="date" id="date">Monday, July 1, 2025</div>
+            <div class="weather-icon">
+                <img id="weather-icon" src="https://openweathermap.org/img/wn/01d@2x.png" alt="Weather icon">
+            </div>
+            <div class="temperature" id="temperature">25<span>°C</span></div>
+            <div class="weather-description" id="weather-description">Sunny</div>
+
+            <div class="details">
+                <div class="detail-item">
+                    <i class="fas fa-temperature-low"></i>
+                    <div class="detail-text">
+                        <span>Min Temp</span>
+                        <span id="min-temp">20°C</span>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-temperature-high"></i>
+                    <div class="detail-text">
+                        <span>Max Temp</span>
+                        <span id="max-temp">30°C</span>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-tint"></i>
+                    <div class="detail-text">
+                        <span>Humidity</span>
+                        <span id="humidity">65%</span>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-wind"></i>
+                    <div class="detail-text">
+                        <span>Wind Speed</span>
+                        <span id="wind-speed">12 km/h</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="forecast">
+            <div class="forecast-title">5-Day Forecast</div>
+            <div class="forecast-items" id="forecast-items">
+                <!-- Forecast items will be added here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
