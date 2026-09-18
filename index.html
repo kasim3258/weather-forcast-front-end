@@ -1,72 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Forecast</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SkyCast - modern weather forecast dashboard" />
+  <title>SkyCast Weather</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <div class="search-container">
-            <input type="text" id="city-input" placeholder="Enter city name">
-            <button id="search-btn"><i class="fas fa-search"></i> Search</button>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">LIVE WEATHER</span>
+        <h1>SkyCast</h1>
+        <p>Simple, fast weather forecasts for any city.</p>
+      </div>
+      <button id="unit-toggle" class="unit-toggle" type="button" aria-label="Switch temperature unit">°C</button>
+    </header>
+
+    <section class="search-panel">
+      <label class="search-box">
+        <span>⌕</span>
+        <input id="city-input" type="search" placeholder="Search city (e.g. Guntur)" autocomplete="off" />
+      </label>
+      <button id="search-btn" class="primary-btn" type="button">Search</button>
+      <button id="location-btn" class="secondary-btn" type="button">Use my location</button>
+    </section>
+
+    <p id="status" class="status" aria-live="polite"></p>
+
+    <section id="weather-info" class="weather-layout" hidden>
+      <article class="hero-card">
+        <div class="hero-copy">
+          <p class="muted" id="date"></p>
+          <h2 id="location">Guntur, India</h2>
+          <p id="description" class="condition">Clear sky</p>
+          <div class="hero-temp"><span id="temperature">28</span><span class="degree">°</span></div>
+          <div class="feels">Feels like <strong id="feels-like">28°</strong></div>
         </div>
+        <div class="hero-icon" id="hero-icon" aria-hidden="true">☀️</div>
+      </article>
 
-        <div class="error-message" id="error-message">
-            City not found. Please try again.
+      <div class="metrics-grid">
+        <article class="metric-card"><span>💧 Humidity</span><strong id="humidity">--%</strong></article>
+        <article class="metric-card"><span>💨 Wind</span><strong id="wind-speed">-- km/h</strong></article>
+        <article class="metric-card"><span>🌡️ Min / Max</span><strong><span id="min-temp">--</span> / <span id="max-temp">--</span></strong></article>
+        <article class="metric-card"><span>☀️ Sunrise / Sunset</span><strong><span id="sunrise">--:--</span> / <span id="sunset">--:--</span></strong></article>
+      </div>
+
+      <section class="forecast-section">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">NEXT 7 DAYS</span>
+            <h3>Forecast</h3>
+          </div>
         </div>
+        <div id="forecast-items" class="forecast-grid"></div>
+      </section>
 
-        <div class="weather-info" id="weather-info">
-            <div class="location" id="location">Guntur, India</div>
-            <div class="date" id="date">Monday, July 1, 2025</div>
-            <div class="weather-icon">
-                <img id="weather-icon" src="https://openweathermap.org/img/wn/01d@2x.png" alt="Weather icon">
-            </div>
-            <div class="temperature" id="temperature">25<span>°C</span></div>
-            <div class="weather-description" id="weather-description">Sunny</div>
-
-            <div class="details">
-                <div class="detail-item">
-                    <i class="fas fa-temperature-low"></i>
-                    <div class="detail-text">
-                        <span>Min Temp</span>
-                        <span id="min-temp">20°C</span>
-                    </div>
-                </div>
-                <div class="detail-item">
-                    <i class="fas fa-temperature-high"></i>
-                    <div class="detail-text">
-                        <span>Max Temp</span>
-                        <span id="max-temp">30°C</span>
-                    </div>
-                </div>
-                <div class="detail-item">
-                    <i class="fas fa-tint"></i>
-                    <div class="detail-text">
-                        <span>Humidity</span>
-                        <span id="humidity">65%</span>
-                    </div>
-                </div>
-                <div class="detail-item">
-                    <i class="fas fa-wind"></i>
-                    <div class="detail-text">
-                        <span>Wind Speed</span>
-                        <span id="wind-speed">12 km/h</span>
-                    </div>
-                </div>
-            </div>
+      <section class="hourly-section">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">NEXT 24 HOURS</span>
+            <h3>Hourly outlook</h3>
+          </div>
         </div>
+        <div id="hourly-items" class="hourly-row"></div>
+      </section>
+    </section>
 
-        <div class="forecast">
-            <div class="forecast-title">5-Day Forecast</div>
-            <div class="forecast-items" id="forecast-items">
-                <!-- Forecast items will be added here by JavaScript -->
-            </div>
-        </div>
-    </div>
+    <section id="empty-state" class="empty-state">
+      <div class="empty-icon">🌤️</div>
+      <h2>Check the weather anywhere</h2>
+      <p>Search for a city to see current conditions, hourly weather, and a 7-day forecast.</p>
+      <div class="quick-cities">
+        <button data-city="Guntur">Guntur</button>
+        <button data-city="Hyderabad">Hyderabad</button>
+        <button data-city="New Delhi">New Delhi</button>
+        <button data-city="Mumbai">Mumbai</button>
+      </div>
+    </section>
 
-    <script src="script.js"></script>
+    <footer>Built with HTML, CSS, JavaScript & Open-Meteo • No API key required</footer>
+  </main>
+  <script src="script.js"></script>
 </body>
 </html>
